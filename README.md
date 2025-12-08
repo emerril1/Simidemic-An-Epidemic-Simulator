@@ -61,7 +61,7 @@ After completion, several output files are generated automatically. These includ
 * summary.json – Key statistics and metadata for the entire simulation run.
 * curve.png - Detailed plot curve of each compartmen of the SEIR model.
 
-These files provide a complete record of the simulation’s behavior and can be used for further analysis or reporting.
+These files provide a complete record of the simulation’s behavior and can be used for further analysis or reporting. The initial test runs folder in this repository contains examples of test runs that can be used for further testing and as examples.
 
 # Parameter Explanations
 
