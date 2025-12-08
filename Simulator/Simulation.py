@@ -11,7 +11,7 @@ from EnumeratedTypes import State
 class Simulation:
     """ Runs the epidemic simulation, logs all data, and exports summary statistics."""
 
-    RESULTS_DIR = "Simidemic/Simulator/results/"
+    RESULTS_DIR = "Simulator/results/"
 
     def __init__(self, config):
         """ Initialize the simulation and all subsystems."""
@@ -221,7 +221,7 @@ if __name__ == "__main__":
 
     # Safely open config file and start simulation
     try:
-        with open("Simidemic/Simulator/config.json") as f:
+        with open("Simulator/config.json") as f:
             config = json.load(f)
         sim = Simulation(config)
         sim.run()
