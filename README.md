@@ -15,17 +15,6 @@ The simulation will not:
 
 By focusing on a simplified virus model, this simulation aims to provide insights into disease propagation and containment strategies, offering a foundation for understanding more complex epidemiological scenarios.
 
-# Project Status
-
-The epidemic simulator is now feature complete and more realistic than before. All main systems such as population modeling, infection logic, and interventions, are fully implemented and documented. The simulator now supports external configuration files for setting parameters such as population size, infection rate, cure rate, and simulation duration, removing the need for hardcoded values.
-
-Recent updates have introduced major improvements to both accuracy and usability:
-* Expanded Interventions: Vaccination, quarantine, and a new social distancing strategy using the adjust_contact_rate function let users test multiple outbreak control methods.
-* Enhanced Population Modeling: A small world network and new helper functions like assign_age_group and update provide more lifelike human interaction patterns and age-based effects.
-* Data and Visualization: The simulator now exports detailed time series, event logs, and summary reports, with visual graphs showing epidemic curves and intervention impacts.
-
-These additions build on the original design without changing its goals. The result is a more configurable, data-rich, and realistic simulator that better models how an epidemic spreads and responds to interventions.
-
 # Installation Instructions
 
 This simulation was developed using Python version 3.13. While this is not the absolute latest release, it was chosen to ensure compatibility with the NetworkX package. NetworkX is supported on Python versions 3.11 and above, making 3.13 a stable and reliable choice for this project.
@@ -51,6 +40,15 @@ If direct installation fails, the package can be downloaded and installed manual
 
 This ensures the simulation has all the necessary dependencies to run properly, regardless of environment or editor.
 
+3.Running the Simulation
+
+Once Python and NetworkX are installed:
+1. Open a terminal in the project folder.
+2. Run the main script:
+- `python Simulation.py`
+3. The simulation will load the default parameters and produce output directly in the terminal.
+4. To run a different scenario or modify settings, edit the JSON parameter file (e.g., config.json) and re-run the command above.
+
 # Usage
 
 All key parameters for the simulator are defined in the config.json file located in the project root. This file allows users to adjust settings such as population size, virus characteristics, intervention strategies, and simulation duration without changing the source code. Each value can be modified to test different outbreak conditions and intervention effects.
@@ -65,18 +63,27 @@ After completion, several output files are generated automatically. These includ
 
 These files provide a complete record of the simulation’s behavior and can be used for further analysis or reporting.
 
-# Architecture Overview
+# Parameter Explanations
 
-The simulator is made up of six main classes and a main program: EnumeratedTypes, Virus, Person, Intervention, Population, and Simulation.
+Simulation
+* duration – Total timesteps the simulation runs.
+* initial_infected – Number of starting infected individuals.
+* purpose – Label for the scenario (e.g., Baseline).
+* params_changed – Notes which parameters differ from defaults.
 
-The Virus class stores disease details such as infection rate, cure rate, and the time it takes for exposed individuals to become infectious.
+Population
+* size – Number of individuals in the network.
+* avg_degree – Average number of connections per person.
+* rewire_prob – Probability of creating long-range shortcuts in the Watts–Strogatz network.
+* risk_factors – Infection risk multipliers by age group (child, adult, senior).
 
-The Person class represents an individual with an ID, health state, and age group. Each person begins as Susceptible and can transition between states through functions that handle exposure, infection, recovery, and quarantine.
+Virus
+* name – Virus identifier.
+* infect_rate – Probability of transmission per contact.
+* cure_rate – Probability of recovery per timestep.
+* infection_time – Fixed number of timesteps someone remains infected.
 
-The Intervention class manages the different public health strategies: vaccination, quarantine, and social distancing. Each intervention has its own start day, coverage, and reduction settings. When triggered, these functions adjust population behavior, such as isolating infected people or reducing contact rates.
-
-The Population class controls all individuals and their interactions through a small-world network that mimics real social contact patterns. Key functions include assign_age_group, adjust_contact_rate, and update, which handle infection spread and recovery each day.
-
-The Simulation class coordinates the entire process, running the epidemic step by step, applying interventions, and exporting time series, event logs, and summary reports.
-
-Lastly, EnumeratedTypes defines all possible health states, improving organization and readability. Overall, the architecture remains consistent with the original design but now includes more realistic modeling, better configurability, and improved data tracking.
+Interventions
+* social_distancing – Reduces contact rate after a start day.
+* vaccination – Immunizes a percentage of the population after a start day.
+* quarantine – Removes a portion of infected individuals from contact after a start day.
